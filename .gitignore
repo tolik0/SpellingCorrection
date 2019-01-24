@@ -1,2 +1,4 @@
 .ipynb_checkpoints/
 data/pubmed-rct-master
+data/
+models/
