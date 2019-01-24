@@ -87,4 +87,4 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
 
 
 if __name__ == "__main__":
-    source_sentences, target_sentences = load_data()
+    source, target = load_data()
