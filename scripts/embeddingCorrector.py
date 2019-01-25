@@ -27,8 +27,8 @@ class EmbeddingCorrector:
         sentence = copy.deepcopy(sentence)
         for i in range(len(sentence)):
             if sentence[i] not in self.model.wv.vocab:
-                candidates = predict_output_word(self.model, sentence[max(0, i - window): i] +
-                                                 sentence[i + 1: min(len(sentence) - 1, i + window + 1)], topn=topn)
+                candidates = predict_output_word(self.model, sentence[max(0, i - window): min(len(sentence), i + window + 1)], topn=topn)
+#                 candidates = self.model.wv.most_similar([sentence[i]])
                 # if no candidates were found
                 if candidates is None:
                     continue

@@ -27,10 +27,15 @@ def predict_output_word(model, context_words_list, topn=10):
 
     if not hasattr(model.wv, 'vectors') or not hasattr(model.trainables, 'syn1neg'):
         raise RuntimeError("Parameters required for predicting the output words not found.")
-
-    word_vocabs = [model.wv.vocab[w] for w in context_words_list if w in model.wv.vocab]
+    
+    word_vocabs = []
+    for w in context_words_list:
+        try:
+            word_vocabs.append(model.wv.vocab[w])
+        except KeyError:
+            continue
+         
     if not word_vocabs:
-        print("All the input context words are out-of-vocabulary for the current model.")
         return None
 
     word2_indices = [word.index for word in word_vocabs]
