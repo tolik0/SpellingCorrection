@@ -35,12 +35,12 @@ def predict_output_word(model, context_words_list, topn=10):
 
     word2_indices = [word.index for word in word_vocabs]
 
-    l1 = np.sum(model.wv.vectors[word2_indices], axis=0) / 5
+    l1 = np.sum(model.wv.vectors[word2_indices], axis=0)
     if word2_indices and model.cbow_mean:
         l1 /= len(word2_indices)
 
     # propagate hidden -> output and take softmax to get probabilities
-    prob_values = np.exp(np.dot(l1, model.trainables.syn1neg.T))
+    prob_values = np.exp(np.dot(l1, model.trainables.syn1neg.T) / 25)
     prob_values /= np.sum(prob_values)
     top_indices = np.argsort(prob_values)[-topn:][::-1]
     # returning the most probable output words with their probabilities

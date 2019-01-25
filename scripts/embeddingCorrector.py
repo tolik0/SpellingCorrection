@@ -29,6 +29,9 @@ class EmbeddingCorrector:
             if sentence[i] not in self.model.wv.vocab:
                 candidates = predict_output_word(self.model, sentence[max(0, i - window): i] +
                                                  sentence[i + 1: min(len(sentence) - 1, i + window + 1)], topn=topn)
+                # if no candidates were found
+                if candidates is None:
+                    continue
                 sentence[i] = min(candidates, key=lambda x: damerau_levenshtein_distance(x[0], sentence[i]))[0]
         return sentence
 
