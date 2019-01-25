@@ -50,7 +50,7 @@ def add_noise_to_sentence(sentence, amount_of_noise):
     return sentence
 
 
-def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-master\PubMed_20k_RCT\\train.txt"):
+def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-master\PubMed_20k_RCT\\test.txt", firstn=10):
     """
     Load data from file and add mistakes
     :param file_name: name of file with text
@@ -59,6 +59,7 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
     with open(file_name, "r", encoding="utf-8") as file:
         text = file.read()
 
+    text = re.sub(r"\b(?:[a-z.]*[A-Z][a-z.]*){2,}", "", text)
     data = [nltk.word_tokenize(re.sub(r"[^a-z]+", " ", sentence.lower())) for sentence in nltk.sent_tokenize(text)]
 
     AMOUNT_OF_NOISE = 0.5 / len(max(data, key=lambda x: len(x)))
@@ -77,11 +78,11 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         print("Different" if " ".join(source_sentences[i]) != " ".join(target_sentences[i]) else "Same")
 
     # Take a look at the initial source of target datasets
-    print("\nThe source is comprised of {:,} sentences. Here are the first 10.".format(len(source_sentences)))
-    print("\n".join([" ".join(i) for i in source_sentences[:10]]))
+    print("\nThe source is comprised of {:,} sentences. Here are the first {}.".format(len(source_sentences), firstn))
+    print("\n".join([("{}. ".format(i + 1) + " ".join(source_sentences[i])) for i in range(firstn)]))
 
-    print("\nThe target is comprised of {:,} sentences. Here are the first 10.".format(len(target_sentences)))
-    print("\n".join([" ".join(i) for i in target_sentences[:10]]))
+    print("\nThe target is comprised of {:,} sentences. Here are the first {}.".format(len(target_sentences), firstn))
+    print("\n".join([("{}. ".format(i + 1) + " ".join(target_sentences[i])) for i in range(firstn)]))
 
     return source_sentences, target_sentences
 
