@@ -5,7 +5,7 @@ class EpochLogger(CallbackAny2Vec):
     '''Callback to log information about training'''
 
     def __init__(self):
-        self.epoch = 0
+        self.epoch = 1
 
     def on_epoch_begin(self, model):
         print("Epoch #{} start".format(self.epoch))
