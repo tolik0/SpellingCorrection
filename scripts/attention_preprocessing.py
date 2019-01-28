@@ -1,10 +1,12 @@
 import re
 import nltk
 from numpy.random import choice as random_choice, randint as random_randint, rand
+import numpy
 import copy
 
 
-def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-master\PubMed_20k_RCT\\test.txt", firstn=10):
+def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-master\PubMed_20k_RCT\\test.txt", firstn=10,
+              save=True):
     """
     Load data from file and add mistakes
     :param file_name: name of file with text
@@ -67,7 +69,11 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         source_sentences[i] = list(map(lambda x: vocab_to_int[x], source_sentences[i]))
         target_sentences[i] = list(map(lambda x: vocab_to_int[x], target_sentences[i]))
 
-    return source_sentences, target_sentences, vocab_to_int, int_to_vocab
+    if save:
+        save_data(source_sentences, target_sentences)
+        return vocab_to_int, int_to_vocab
+    else:
+        return source_sentences, target_sentences, vocab_to_int, int_to_vocab
 
 
 def create_dicts(text):
@@ -94,7 +100,6 @@ def create_dicts(text):
     int_to_vocab = {}
     for character, value in vocab_to_int.items():
         int_to_vocab[value] = character
-
     return vocab_to_int, int_to_vocab
 
 
@@ -201,6 +206,13 @@ def add_noise_to_sentence(sentence, amount_of_noise):
     return sentence
 
 
+def save_data(source, target, batch_size=100):
+    for i in range(source.shape[0] // batch_size):
+        numpy.save(f"../data/sources/{i}", source[i * batch_size:(i + 1) * batch_size, ])
+        numpy.save(f"../data/targets/{i}", target[i * batch_size:(i + 1) * batch_size, ])
+
+
+
 if __name__ == "__main__":
-    source, target, vocab_to_int, int_to_vocab = load_data()
+    source, target, vocab_to_int, int_to_vocab = load_data(save=False)
     print(source[0])
