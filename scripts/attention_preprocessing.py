@@ -59,7 +59,7 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
     for i in range(firstn):
         print("\nSource --> " + "".join(source_sentences[i]))
         print("Target --> " + "".join(target_sentences[i]))
-        print("Different" if "".join(source_sentences[i]) != " ".join(target_sentences[i]) else "Same")
+        print("Different" if "".join(source_sentences[i]) != "".join(target_sentences[i]) else "Same")
 
     for i in range(len(data)):
         source_sentences[i] = list(source_sentences[i]) + ["<EOS>"] + ["<PAD>"] * (199 - len(source_sentences[i]))
