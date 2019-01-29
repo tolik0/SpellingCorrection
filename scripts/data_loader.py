@@ -1,19 +1,17 @@
 import numpy as np
 import keras
+import os
 
 
 class DataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
 
-    def __init__(self, source_names, target_names, dimx=200, dimy=200, batch_size=100, n_classes=56, shuffle=True):
+    def __init__(self, source_names, target_names, n_classes=56, n_s=64):
         'Initialization'
-        self.batch_size = batch_size
-        self.dimx = dimx
-        self.dimy = dimy
         self.target_names = target_names
         self.source_names = source_names
         self.n_classes = n_classes
-        self.shuffle = shuffle
+        self.n_s = n_s
 
     def __len__(self):
         'Denotes the number of batches per epoch'
@@ -21,14 +19,29 @@ class DataGenerator(keras.utils.Sequence):
 
     def __getitem__(self, index):
         'Generate one batch of data'
-        # Generate data
-        X = np.empty((self.batch_size, *self.dimx))
-        y = np.empty((self.batch_size, *self.dimy))
 
         # Store sample
         X = np.load('../data/sources/' + self.source_names[index] + '.npy')
         # Store output
-        y = np.load('../data/targets/' + self.target_names[index] + '.npy')
+        y = np.load('../data/targets/' + self.target_names[index] + '.npy') 
+        y = keras.utils.to_categorical(y, num_classes=self.n_classes) # y.shape = (batch_size, T_y, vocab_size)
+        y_true = np.concatenate((np.zeros((y.shape[0], 1, y.shape[2])), y), axis=1)[:, :-1, :]
 
-        return keras.utils.to_categorical(X, num_classes=self.n_classes), \
-               keras.utils.to_categorical(y, num_classes=self.n_classes)
+        return ({'X': keras.utils.to_categorical(X, num_classes=self.n_classes),
+                    's0': np.zeros((X.shape[0], self.n_s)),
+                    'c0': np.zeros((X.shape[0], self.n_s)),
+                    'Y_true': y_true},
+                 list(y.swapaxes(0, 1)))
+
+
+def generate_data(path, n_classes, n_s):
+    sources = os.listdir(os.path.join(path, "sources\\"))
+    targets = os.listdir(os.path.join(path, "targets\\"))
+    while True:
+        for i in range(len(sources)):
+            X = np.load(os.path.join(path, "sources", sources[i]))
+            Y = np.load(os.path.join(path, "targets", targets[i]))
+            yield ({'X': keras.utils.to_categorical(X, num_classes=n_classes),
+                    's0': np.zeros((X.shape[0], n_s)),
+                    'c0': np.zeros((X.shape[0], n_s))},
+                   {'output': list(keras.utils.to_categorical(Y, num_classes=n_classes).swapaxes(0, 1))})

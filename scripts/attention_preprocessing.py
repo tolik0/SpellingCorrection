@@ -207,6 +207,8 @@ def add_noise_to_sentence(sentence, amount_of_noise):
 
 
 def save_data(source, target, batch_size=100):
+    source = numpy.array(source)
+    target = numpy.array(target)
     for i in range(source.shape[0] // batch_size):
         numpy.save(f"../data/sources/{i}", source[i * batch_size:(i + 1) * batch_size, ])
         numpy.save(f"../data/targets/{i}", target[i * batch_size:(i + 1) * batch_size, ])
