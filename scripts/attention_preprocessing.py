@@ -19,6 +19,7 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
     with open(file_name, "r", encoding="utf-8") as file:
         text = file.read()
 
+    # delete all trash
     text = re.sub(r"\b(?:[a-z.]*[A-Z][a-z.]*){2,}", "", text)
     text = re.sub(r"[^a-zA-Z .]+", "", text)
     text = re.sub('\'92t', '\'t', text)
@@ -34,25 +35,32 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
     text = re.sub('\?', '? ', text)
     text = re.sub(' +', ' ', text)
     data = nltk.sent_tokenize(text)
+
+    # create dicts for transforming characters to ints
     vocab_to_int, int_to_vocab = create_dicts(text)
 
-    start_len = sum([len(sentence) for sentence in data])
+    # calculate length of longest sentence and all text
     print("\nMax length of sentence: {}.\n".format(len(max(data, key=lambda x: len(x)))))
+    start_len = sum([len(sentence) for sentence in data])
 
-    data = list(filter(lambda x: len(x) > 50, data))
+    # delete short sentences and split long
     data = [y for x in data for y in split_sentence(x)]
     data = list(filter(lambda x: len(x) < 200, data))
-    finish_len = sum([len(sentence) for sentence in data])
+    data = list(filter(lambda x: len(x) > 50, data))
 
+    # calculate final length of text and print some info about text
+    finish_len = sum([len(sentence) for sentence in data])
     print("Initial length of text = {}, final length of text = {}, part of saved text = {}.".format(
         start_len, finish_len,
         finish_len / start_len))
 
+    # constant which control amount of mistakes
     AMOUNT_OF_NOISE = 0.5 / len(max(data, key=lambda x: len(x)))
 
     source_sentences = copy.deepcopy(data)
     target_sentences = copy.deepcopy(data)
 
+    # add mistakes to the text
     for i in range(len(data)):
         source_sentences[i] = add_noise_to_sentence(data[i], AMOUNT_OF_NOISE)
 
@@ -64,8 +72,10 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         print("Different" if "".join(source_sentences[i]) != "".join(target_sentences[i]) else "Same")
 
     for i in range(len(data)):
+        # add special symbols to make all sentences with same length - 200
         source_sentences[i] = list(source_sentences[i]) + ["<EOS>"] + ["<PAD>"] * (199 - len(source_sentences[i]))
         target_sentences[i] = list(target_sentences[i]) + ["<EOS>"] + ["<PAD>"] * (199 - len(target_sentences[i]))
+        # transform characters to ints
         source_sentences[i] = list(map(lambda x: vocab_to_int[x], source_sentences[i]))
         target_sentences[i] = list(map(lambda x: vocab_to_int[x], target_sentences[i]))
 
@@ -74,6 +84,48 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         return vocab_to_int, int_to_vocab
     else:
         return source_sentences, target_sentences, vocab_to_int, int_to_vocab
+
+
+def transform_data(text, vocab_to_int=None, int_to_vocab=None):
+    """
+    Transform text to list of lists of ints
+    :param text: text as string
+    :param vocab_to_int: dict with characters as keys and integers as values
+    :return: list of lists of ints
+    """
+
+    # delete all trash
+    text = re.sub(r"\b(?:[a-z.]*[A-Z][a-z.]*){2,}", "", text)
+    text = re.sub(r"[^a-zA-Z .]+", "", text)
+    text = re.sub('\'92t', '\'t', text)
+    text = re.sub('\'92s', '\'s', text)
+    text = re.sub('\'92m', '\'m', text)
+    text = re.sub('\'92ll', '\'ll', text)
+    text = re.sub('\'91', '', text)
+    text = re.sub('\'92', '', text)
+    text = re.sub('\'93', '', text)
+    text = re.sub('\'94', '', text)
+    text = re.sub('\.', '. ', text)
+    text = re.sub('\!', '! ', text)
+    text = re.sub('\?', '? ', text)
+    text = re.sub(' +', ' ', text)
+    data = nltk.sent_tokenize(text)
+
+    if not vocab_to_int:
+        vocab_to_int, int_to_vocab = create_dicts(text)
+
+    # delete short sentences and split long
+    data = [y for x in data for y in split_sentence(x)]
+    data = list(filter(lambda x: len(x) < 200, data))
+    data = list(filter(lambda x: len(x) > 50, data))
+
+    for i in range(len(data)):
+        # add special symbols to make all sentences with same length - 200
+        data[i] = list(data[i]) + ["<EOS>"] + ["<PAD>"] * (199 - len(data[i]))
+        # transform characters to ints
+        data[i] = list(map(lambda x: vocab_to_int[x], data[i]))
+
+    return data, vocab_to_int, int_to_vocab
 
 
 def create_dicts(text):
@@ -207,12 +259,9 @@ def add_noise_to_sentence(sentence, amount_of_noise):
 
 
 def save_data(source, target, batch_size=100):
-    source = numpy.array(source)
-    target = numpy.array(target)
     for i in range(source.shape[0] // batch_size):
         numpy.save(f"../data/sources/{i}", source[i * batch_size:(i + 1) * batch_size, ])
         numpy.save(f"../data/targets/{i}", target[i * batch_size:(i + 1) * batch_size, ])
-
 
 
 if __name__ == "__main__":

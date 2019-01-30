@@ -27,12 +27,16 @@ class EmbeddingCorrector:
         sentence = copy.deepcopy(sentence)
         for i in range(len(sentence)):
             if sentence[i] not in self.model.wv.vocab:
-                candidates = predict_output_word(self.model, sentence[max(0, i - window): min(len(sentence), i + window + 1)], topn=topn)
-#                 candidates = self.model.wv.most_similar([sentence[i]])
+                candidates = predict_output_word(self.model,
+                                                 sentence[max(0, i - window): min(len(sentence), i + window + 1)],
+                                                 topn=topn)
+                #                 candidates = self.model.wv.most_similar([sentence[i]])
                 # if no candidates were found
                 if candidates is None:
                     continue
-                sentence[i] = min(candidates, key=lambda x: damerau_levenshtein_distance(x[0], sentence[i]))[0]
+                best_candidate = min(candidates, key=lambda x: damerau_levenshtein_distance(x[0], sentence[i]))[0]
+                sentence[i] = best_candidate if damerau_levenshtein_distance(sentence[i], best_candidate) < 3 else \
+                    sentence[i]
         return sentence
 
     def correct_text(self, text, window=2, topn=10):
@@ -47,5 +51,5 @@ class EmbeddingCorrector:
         """
         text = copy.deepcopy(text)
         for i in range(len(text)):
-                text[i] = self.correct_sentence(text[i], window=window, topn=topn)
+            text[i] = self.correct_sentence(text[i], window=window, topn=topn)
         return text

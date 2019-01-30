@@ -60,6 +60,19 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         text = file.read()
 
     text = re.sub(r"\b(?:[a-z.]*[A-Z][a-z.]*){2,}", "", text)
+    text = re.sub(r"[^a-zA-Z .]+", "", text)
+    text = re.sub('\'92t', '\'t', text)
+    text = re.sub('\'92s', '\'s', text)
+    text = re.sub('\'92m', '\'m', text)
+    text = re.sub('\'92ll', '\'ll', text)
+    text = re.sub('\'91', '', text)
+    text = re.sub('\'92', '', text)
+    text = re.sub('\'93', '', text)
+    text = re.sub('\'94', '', text)
+    text = re.sub('\.', '. ', text)
+    text = re.sub('\!', '! ', text)
+    text = re.sub('\?', '? ', text)
+    text = re.sub(' +', ' ', text)
     data = [nltk.word_tokenize(re.sub(r"[^a-z]+", " ", sentence.lower())) for sentence in nltk.sent_tokenize(text)]
 
     AMOUNT_OF_NOISE = 0.5 / len(max(data, key=lambda x: len(x)))
