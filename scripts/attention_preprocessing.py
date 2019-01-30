@@ -265,7 +265,7 @@ def transform_data(text, vocab_to_int, final_length=200):
 
     convert_to_numbers(data, final_length)
 
-    return data, vocab_to_int, int_to_vocab
+    return data
 
 
 if __name__ == "__main__":
