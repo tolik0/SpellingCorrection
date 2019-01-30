@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55fda495-dfec-426d-92fc-ed39275bcb57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/attention_decoder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attention_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notebooks/AttentionModel.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../notebooks/AttentionModel.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notebooks/Correct.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../notebooks/Correct.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notebooks/TestModels.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../notebooks/TestModels.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notebooks/TrainModels(FastText&amp;Word2Vec).ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../notebooks/TrainModels(FastText&amp;Word2Vec).ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/attention_preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/attention_preprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/embeddingCorrector.py" beforeDir="false" afterPath="$PROJECT_DIR$/embeddingCorrector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocess_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocess_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/word2vec_preprocessing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +13,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/scripts$preprocess_data.coverage" NAME="preprocess_data Coverage Results" MODIFIED="1548425667548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/scripts$attention_preprocessing.coverage" NAME="attention_preprocessing Coverage Results" MODIFIED="1548836867749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-523886523">
@@ -32,7 +25,8 @@
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.639" value="1" />
           <entry key="project.open.time.8" value="4" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -47,12 +41,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3528" />
+          <entry key="dummy" value="35" />
+          <entry key="py" value="4201" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="3528" />
+          <entry key="PLAIN_TEXT" value="35" />
+          <entry key="Python" value="4201" />
         </counts>
       </usages-collector>
     </session>
@@ -60,12 +56,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/preprocess_data.py">
+        <entry file="file://$PROJECT_DIR$/word2vec_preprocessing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="928">
-              <caret line="61" column="61" selection-start-line="61" selection-start-column="61" selection-end-line="61" selection-end-column="61" />
+            <state relative-caret-position="-173">
+              <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
               <folding>
-                <marker date="1548760160763" expanded="true" signature="4849:4851" ph="..." />
+                <element signature="e#0#9#0" expanded="true" />
+                <marker date="1548837579907" expanded="true" signature="4849:4851" ph="..." />
               </folding>
             </state>
           </provider>
@@ -74,15 +71,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/attention_preprocessing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-415">
-              <caret line="109" column="35" lean-forward="true" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
+            <state relative-caret-position="-256">
+              <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1548794957831" expanded="true" signature="2304:2938" ph="..." />
-                <marker date="1548794957831" expanded="true" signature="3688:3691" ph="..." />
-                <marker date="1548794957831" expanded="true" signature="3982:5201" ph="..." />
-                <marker date="1548794957831" expanded="true" signature="5224:6056" ph="..." />
-                <marker date="1548794957831" expanded="true" signature="8991:9225" ph="..." />
+                <marker date="1548837579835" expanded="true" signature="1848:2532" ph="..." />
+                <marker date="1548837579835" expanded="true" signature="2847:4169" ph="..." />
+                <marker date="1548837579835" expanded="true" signature="2958:4169" ph="..." />
+                <marker date="1548837579835" expanded="true" signature="3590:4169" ph="..." />
               </folding>
             </state>
           </provider>
@@ -91,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/embeddingCorrector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
-              <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+            <state relative-caret-position="272">
+              <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -103,7 +99,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/predict_from_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
+            <state relative-caret-position="688">
               <caret line="43" column="40" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="40" />
             </state>
           </provider>
@@ -133,9 +129,9 @@
         <option value="$PROJECT_DIR$/data_loader.py" />
         <option value="$PROJECT_DIR$/attention_decoder.py" />
         <option value="$PROJECT_DIR$/attention_model.py" />
-        <option value="$PROJECT_DIR$/preprocess_data.py" />
         <option value="$PROJECT_DIR$/embeddingCorrector.py" />
         <option value="$PROJECT_DIR$/attention_preprocessing.py" />
+        <option value="$PROJECT_DIR$/preprocess_data.py" />
       </list>
     </option>
   </component>
@@ -156,7 +152,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,6 +163,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -194,7 +190,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.attention_preprocessing">
+    <configuration name="attention_preprocessing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/attention_preprocessing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="preprocess_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="scripts" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -208,7 +226,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/preprocess_data.py" />
+      <option name="SCRIPT_NAME" value="D:\Programming\SpellingCorrection\scripts\word2vec_preprocessing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -217,8 +235,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.preprocess_data" />
+      <item itemvalue="Python.attention_preprocessing" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.attention_preprocessing" />
         <item itemvalue="Python.preprocess_data" />
       </list>
     </recent_temporary>
@@ -239,12 +262,12 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26174498" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2657718" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.40992907" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.24680851" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -306,57 +329,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/embeddingCorrector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+        <state relative-caret-position="272">
+          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/epoch_logger.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/predict_from_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
+        <state relative-caret-position="688">
           <caret line="43" column="40" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/epoch_logger.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/attention_preprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-415">
-          <caret line="109" column="35" lean-forward="true" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
+        <state relative-caret-position="-256">
+          <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1548794957831" expanded="true" signature="2304:2938" ph="..." />
-            <marker date="1548794957831" expanded="true" signature="3688:3691" ph="..." />
-            <marker date="1548794957831" expanded="true" signature="3982:5201" ph="..." />
-            <marker date="1548794957831" expanded="true" signature="5224:6056" ph="..." />
-            <marker date="1548794957831" expanded="true" signature="8991:9225" ph="..." />
+            <marker date="1548837579835" expanded="true" signature="1848:2532" ph="..." />
+            <marker date="1548837579835" expanded="true" signature="2847:4169" ph="..." />
+            <marker date="1548837579835" expanded="true" signature="2958:4169" ph="..." />
+            <marker date="1548837579835" expanded="true" signature="3590:4169" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preprocess_data.py">
+    <entry file="file://$PROJECT_DIR$/word2vec_preprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="61" column="61" selection-start-line="61" selection-start-column="61" selection-end-line="61" selection-end-column="61" />
+        <state relative-caret-position="-173">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
           <folding>
-            <marker date="1548760160763" expanded="true" signature="4849:4851" ph="..." />
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1548837579907" expanded="true" signature="4849:4851" ph="..." />
           </folding>
         </state>
       </provider>
