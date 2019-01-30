@@ -251,6 +251,7 @@ def transform_data(text, vocab_to_int, final_length=200):
     Transform text to list of lists of ints
     :param text: text as string
     :param vocab_to_int: dict with characters as keys and integers as values
+    :param final_length: length of final sentences
     :return: list of lists of ints
     """
 
@@ -263,7 +264,7 @@ def transform_data(text, vocab_to_int, final_length=200):
     data = list(filter(lambda x: len(x) < 200, data))
     data = list(filter(lambda x: len(x) > 50, data))
 
-    convert_to_numbers(data, final_length)
+    convert_to_numbers(data, final_length, vocab_to_int)
 
     return data
 
