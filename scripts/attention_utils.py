@@ -25,7 +25,8 @@ def softmax(x, axis=1):
         
 
 def one_hot(x):
-    x = K.argmax(x)
-    x = tf.one_hot(x, 56) 
+    max_i = K.argmax(x)
+    prob = x[max_i]
+    x = tf.one_hot(max_i, 56) 
     x = RepeatVector(1)(x)
-    return x
+    return x, prob
