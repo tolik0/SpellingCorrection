@@ -5,13 +5,12 @@ import numpy
 import copy
 
 
-def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-master\PubMed_20k_RCT\\test.txt", firstn=3,
+def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-master\PubMed_20k_RCT\\test.txt", firstn=10,
               save=True):
     """
     Load data from file and add mistakes
     :param file_name: name of file with text
     :param firstn: amount of sentences to show as example
-    :param save: if True save numpy arrays with final data look at save_data
     :return: source_sentences: list of sentences with lists of characters (with mistakes)
     :return: target_sentences: list of sentences with lists of characters (correct)
     :return: vocab_to_int: dict to transform characters into int
@@ -20,37 +19,25 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
     with open(file_name, "r", encoding="utf-8") as file:
         text = file.read()
 
-    # delete all trash
-    text = clean_text(text)
-
-    # divide to sentences
-    data = nltk.sent_tokenize(text)  # list of strings
-
-    # create dicts for transforming characters to ints
+    text = remove_unwanted_chars(text)
+    data = nltk.sent_tokenize(text)
     vocab_to_int, int_to_vocab = create_dicts(text)
 
-    # calculate length of longest sentence and all text
-    print("\nMax length of sentence: {}.\n".format(len(max(data, key=lambda x: len(x)))))
     start_len = sum([len(sentence) for sentence in data])
+    print("\nMax length of sentence: {}.\n".format(len(max(data, key=lambda x: len(x)))))
 
-    # delete short sentences and split long
-    data = [y for x in data for y in split_sentence(x)]
-    data = list(filter(lambda x: len(x) < 200, data))
-    data = list(filter(lambda x: len(x) > 50, data))
-
-    # calculate final length of text and print some info about text
+    data = split_and_filter(data)
     finish_len = sum([len(sentence) for sentence in data])
+
     print("Initial length of text = {}, final length of text = {}, part of saved text = {}.".format(
         start_len, finish_len,
         finish_len / start_len))
 
+    AMOUNT_OF_NOISE = 0.5 / len(max(data, key=lambda x: len(x)))
+
     source_sentences = copy.deepcopy(data)
     target_sentences = copy.deepcopy(data)
 
-    # constant which control amount of mistakes
-    AMOUNT_OF_NOISE = 0.5 / len(max(data, key=lambda x: len(x)))
-
-    # add mistakes to the text
     for i in range(len(data)):
         source_sentences[i] = add_noise_to_sentence(data[i], AMOUNT_OF_NOISE)
 
@@ -61,8 +48,8 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         print("Target --> " + "".join(target_sentences[i]))
         print("Different" if "".join(source_sentences[i]) != "".join(target_sentences[i]) else "Same")
 
-    for sentences in [source_sentences, target_sentences]:
-        convert_to_numbers(sentences, 200, vocab_to_int)
+    target_sentences = convert_to_numbers(target_sentences, 200, vocab_to_int)
+    source_sentences = convert_to_numbers(source_sentences, 200, vocab_to_int)
 
     if save:
         save_data(source_sentences, target_sentences)
@@ -71,12 +58,8 @@ def load_data(file_name="D:\Programming\SpellingCorrection\data\pubmed-rct-maste
         return source_sentences, target_sentences, vocab_to_int, int_to_vocab
 
 
-def clean_text(text):
-    """
-    Delete trash from text
-    :param text: string
-    :return: string
-    """
+def remove_unwanted_chars(text):
+    """Return copy of the text with special symbols and abbreviations removed"""
     text = re.sub(r"\b(?:[a-z.]*[A-Z][a-z.]*){2,}", "", text)
     text = re.sub(r"[^a-zA-Z .]+", "", text)
     text = re.sub('\'92t', '\'t', text)
@@ -94,6 +77,14 @@ def clean_text(text):
     return text
 
 
+def split_and_filter(data):
+    """Split sentences into parts of length not exceeding 200 character"""
+    data = list(filter(lambda x: len(x) > 50, data))
+    data = [y for x in data for y in split_sentence(x)]
+    data = list(filter(lambda x: len(x) < 200, data))
+    return data
+
+
 def convert_to_numbers(data, final_length, vocab_to_int):
     """
     Add special symbols to make all sentences with same length and transform characters to integers
@@ -106,6 +97,8 @@ def convert_to_numbers(data, final_length, vocab_to_int):
         data[i] = list(data[i]) + ["<EOS>"] + ["<PAD>"] * (final_length - 1 - len(data[i]))
         # transform characters to ints
         data[i] = list(map(lambda x: vocab_to_int[x], data[i]))
+
+    return data
 
 
 def create_dicts(text):
@@ -256,18 +249,17 @@ def transform_data(text, vocab_to_int, final_length=200):
     """
 
     # delete all trash
-    text = clean_text(text)
+    text = remove_unwanted_chars(text)
     data = nltk.sent_tokenize(text)
 
     # delete short sentences and split long
-    data = [y for x in data for y in split_sentence(x)]
-    data = list(filter(lambda x: len(x) < 200, data))
-    data = list(filter(lambda x: len(x) > 50, data))
+    data = split_and_filter(data)
 
-    convert_to_numbers(data, final_length, vocab_to_int)
+    data = numpy.array(convert_to_numbers(data, final_length, vocab_to_int))
 
     return data
 
 
 if __name__ == "__main__":
-    vocab_to_int, int_to_vocab = load_data(save=True)
+    source, target, vocab_to_int, int_to_vocab = load_data(save=False)
+    print(source[0])

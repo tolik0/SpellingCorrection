@@ -22,11 +22,4 @@ def softmax(x, axis=1):
         return e / s
     else:
         raise ValueError('Cannot apply softmax to a tensor that is 1D')
-        
-
-def one_hot(x):
-    max_i = K.argmax(x)
-    prob = x[max_i]
-    x = tf.one_hot(max_i, 56) 
-    x = RepeatVector(1)(x)
-    return x, prob
+       
